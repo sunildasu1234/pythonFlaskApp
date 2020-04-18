@@ -1,2 +1,2 @@
-python setup.py install
-python setup.py build
+python /pythonFlaskApp/setup.py install
+python /pythonFlaskApp/setup.py build
