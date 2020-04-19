@@ -1,8 +1,7 @@
 """
-Python wrapper for `The Internet Chuck Norris Database` API at http://www.icndb.com/api/.
+Python wrapper for Chuck Norris jokes from API https://api.chucknorris.io/
 
-:author:     --  Adiyat Mubarak <adiyatmubarak@gmail.com>
-:link:       --  http://adiyatmubarak.web.id/
+:author:     --  Sunil Kumar <sunildasu1234@gmail.com>
 :license:    --  MIT License - http://www.opensource.org/licenses/mit-license.php
 """
 import requests

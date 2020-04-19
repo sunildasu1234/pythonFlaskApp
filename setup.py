@@ -7,9 +7,9 @@ setup(
     version='1.2',
     # packages=['chuck'],
     license='MIT',
-    long_description='Python wrapper for "The Internet Chuck Norris Database" http://www.icndb.com/api/',
+    long_description='Python wrapper for Chuck Norris jokes from API https://api.chucknorris.io/',
     install_requires=['requests'],
-    url='https://github.com/Keda87/chuck-norris-python',
-    author='Adiyat Mubarak',
-    author_email='adiyatmubarak@gmail.com'
+    url='https://github.com/sunildasu1234/pythonFlaskApp.git',
+    author='Sunil kumar',
+    author_email='sunildasu1234@gmail.com'
 )
