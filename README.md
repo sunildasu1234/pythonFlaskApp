@@ -129,13 +129,13 @@ Ansible Terms
 Installation
   * Created two t2.micro with ubuntu 18 image
   * Login into ansible control server
-      Windows 10 (with no updates) or Windows 7 : Install Git for windows from here
+      
    ```
-    Used below cmds to install ansible in control machine
-    sudo apt update
-    sudo apt install software-properties-common
-    sudo apt-add-repository --yes --update ppa:ansible/ansible
-    sudo apt install ansible
+    * Used below cmds to install ansible in control machine
+        sudo apt update
+        sudo apt install software-properties-common
+        sudo apt-add-repository --yes --update ppa:ansible/ansible
+        sudo apt install ansible
   
    ```
 
