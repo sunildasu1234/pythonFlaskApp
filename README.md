@@ -1,4 +1,4 @@
-# chuck-norris-pythonPython wrapper for "The Internet Chuck Norris Database" http://www.icndb.com/api/ and compatible with python 2 & 3.
+# chuck-norris-pythonPython wrapper for "The Chuck Norris from API https://api.chucknorris.io/ and compatible with python 2 & 3.
 Python wrapper for Chuck Norris jokes from API https://api.chucknorris.io/
 
 #### Installation:
@@ -13,7 +13,7 @@ Python wrapper for Chuck Norris jokes from API https://api.chucknorris.io/
    ```
       pip install flask
    ```
-  * Below is the code which is cloned from central repository () 
+  * Below is the code which is cloned from central repository (https://github.com/sunildasu1234/pythonFlaskApp.git) 
 #### Python code:
 ```
 """
