@@ -49,16 +49,13 @@ class ChuckNorris(object):
     python __init__.py
     Executed curl for verification, below is the output:
 ```
-root@ubuntu:/pythonFlaskApp/chuck# curl http://10.128.0.11:8080/jokes
-10.128.0.11 - - [18/Apr/2020 11:00:38] "GET /self HTTP/1.1" 200 -
-A strange-but-true phenomenon - whenever there is a natural disaster in the world, Chuck Norris' stocks soar.root@ubuntu:/pythonFlaskApp/chuck# curl http://10.128.0.11:8080/jokes
-10.128.0.11 - - [18/Apr/2020 11:00:51] "GET /self HTTP/1.1" 200 -
-Chuck Norris says, 'if life gives you lemons, punch it in the nuts until it doesn't.'root@ubuntu:/pythonFlaskApp/chuck# curl http://10.128.0.11:8080/jokes
-10.128.0.11 - - [18/Apr/2020 11:00:58] "GET /self HTTP/1.1" 200 -
-Lindsay Lohan once put a hickey on one of Chuck Norris' hemorrhoids.root@ubuntu:/pythonFlaskApp/chuck# 79.194.192.221 - - [18/Apr/2020 11:01:04] "GET / HTTP/1.1" 200 -
-79.194.192.221 - - [18/Apr/2020 11:01:05] "GET /favicon.ico HTTP/1.1" 404 -
-79.194.192.221 - - [18/Apr/2020 11:01:14] "GET /self HTTP/1.1" 200 -
-79.194.192.221 - - [18/Apr/2020 11:01:22] "GET /self HTTP/1.1" 200 -
+ansible@ip-172-31-38-224:~$ curl http://172.31.38.224:8080
+Welcome! to Chuck-norrisansible@ip-172-31-38-224:~$ curl http://172.31.38.224:8080/jokes
+A lot of people like to slam Tequila shots. Chuck Norris enjoys slamming people who enjoy slamming Tequila shots.ansible@ip-172-31-38-224:~$ curl http://172.31.38.224:8080/jokes
+Chuck Norris has a do called round houseansible@ip-172-31-38-224:~$ curl http://172.31.38.224:8080/jokes
+Chuck Norris balls is where u get the term, you dont have the stones.ansible@ip-172-31-38-224:~$
+ansible@ip-172-31-38-224:~$
+
 ```
 * Next I have installed docker manually and create Dockerfile to build the image.
 
@@ -87,15 +84,20 @@ Lindsay Lohan once put a hickey on one of Chuck Norris' hemorrhoids.root@ubuntu:
   ![image](Chucknorris.PNG)
    
  ```
-root@ubuntu:/pythonFlaskApp# Once when the container is up and running Idocker container ps -a
-CONTAINER ID        IMAGE               COMMAND                CREATED             STATUS              PORTS                    NAMES
-179c750bb8f5        chucknorrise:1.0    "python __init__.py"   4 seconds ago       Up 3 seconds        0.0.0.0:8080->8080/tcp   myapp
-root@ubuntu:/pythonFlaskApp# curl http://10.128.0.11:8080
-Welcome! Hello worldroot@ubuntu:/pythonFlaskApp# curl http://10.128.0.11:8080
-Welcome! Hello worldroot@ubuntu:/pythonFlaskApp# curl http://10.128.0.11:8080/self
-Chuck Norris can make a virgin go ass-to-mouth on a first date.root@ubuntu:/pythonFlaskApp# curl http://10.128.0.11:8080/self
-Remember when I said Chuck Norris was slower than Sonic. I lied. Their top speed is equal.
-root@ubuntu:/pythonFlaskApp# 
+ ansible@ip-172-31-38-224:~$ docker image ls
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+chucknorris_jokes   1.0                 81affaa1e6fa        9 minutes ago       110MB
+python              3.7-alpine          7fbc871584eb        4 weeks ago         95.8MB
+ansible@ip-172-31-38-224:~$ docker ps -a
+CONTAINER ID        IMAGE                   COMMAND                CREATED             STATUS              PORTS                    NAMES
+534a3e9d4c7a        chucknorris_jokes:1.0   "python __init__.py"   9 minutes ago       Up 9 minutes        0.0.0.0:8080->8080/tcp   chucknorrisapp
+ansible@ip-172-31-38-224:~$ curl http://172.31.38.224:8080
+Welcome! to Chuck-norrisansible@ip-172-31-38-224:~$ curl http://172.31.38.224:8080/jokes
+Chuck Norris can run so fast, he can actually shoot an apple off of his own headansible@ip-172-31-38-224:~$ curl http://172.31.38.224:8080/jokes
+ansible@ip-172-31-38-224:~$ curl http://172.31.38.224:8080/jokes
+There is no 'ctrl' button on Chuck Norris's computer. Chuck Norris is always in control.ansible@ip-172-31-38-224:~$
+
+
 
  ```
 
@@ -120,29 +122,28 @@ Installation
   
    ```
 
- * We need to configure an admin user on the ansible control server and also nodes
+ * We need to configure an user on the ansible control server and also in nodes
      * Login into ansible control server and
         * Ensure password based authentication is enabled
-        * Create a user called as admin
-        * Give admin user sudo privileges
-        * Now create a key for the user admin
-     * Login into node
+        * Create a user called as ansible
+        * Give ansible user sudo privileges
+        * Now create a key for the ansible admin
+     * Login into node 
         * Ensure password based authentication is enabled
-        * Create a user called as admin
-        * Give admin user sudo privileges
-        * Now create a key for the user admin
-     * Login into ansible control server
-     * Copy the public key to ansible node for seamless authentication
+        * Create a user called as ansible
+        * Give ansible user sudo privileges
+        * Now create a key for the user ansible
+     * Login into ansible control server & copy the public key to node for seamless authentication
      
    * Playbook:
-      * Below are the steps performed to execute ansible playbook.
+     * Below are the steps performed to execute ansible playbook.
        1. Used apt module to update the packages.
        2. Install docker and created admin user and assign to docker group.
-       3. Clone the pyhton code from central repo (https://github.com/sunildasu1234/pythonFlaskApp.git) and 
+       3. Clone the code from git repo (https://github.com/sunildasu1234/pythonFlaskApp.git) and 
           kept in chucknorris directory
-       4. Installed python-pip and pip libraries (docker)
-       5. To Build the docker image used "docker_image" module in ansible.
-       6. To run the docker image in a container used "docker_container" module in ansible
+       4. Installed python-pip and pip libraries.
+       5. To Build the docker image used "docker_image" module.
+       6. To run the docker image in a container used "docker_container" module.
        
      ```
         ---
@@ -239,6 +240,6 @@ Installation
                 - "8080:8080"   
      ```
     
- * Finally I can able to view the Chucknorris jokes from the browser (http://<public-ip>:8080/self)      
+ * Finally I can able to view the Chucknorris jokes from the browser (http://<public-ip>:8080/jokes)      
         
   
