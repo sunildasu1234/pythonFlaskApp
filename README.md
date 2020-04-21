@@ -240,6 +240,6 @@ Installation
                 - "8080:8080"   
      ```
     
- * Finally I can able to view the Chucknorris jokes from the browser (http://<public-ip>:8080/jokes)      
+ * Finally I can able to view the Chucknorris jokes from the browser (http://<<public-ip>>:8080/jokes)      
         
   
