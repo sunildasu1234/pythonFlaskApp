@@ -176,11 +176,6 @@ Installation
               - software-properties-common
             USER: "admin"
           tasks: 
-          - name: update packages
-            apt:
-                update_cache: "yes"
-                force_apt_get: "yes"
-        
           - name: Install packages needed for Docker
             apt:
               name: "{{ DOCKER_PACKAGES }}"

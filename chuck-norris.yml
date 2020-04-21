@@ -1,0 +1,91 @@
+---
+- hosts: all
+  become: true
+  vars:
+    DOCKER_PACKAGES:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg-agent
+      - software-properties-common
+    USER: "admin"
+    repo: "https://github.com/sunildasu1234/pythonFlaskApp.git"
+  tasks: 
+  - name: Install packages needed for Docker
+    apt:
+      name: "{{ DOCKER_PACKAGES }}"
+      state: present
+      force_apt_get: "yes"
+
+  - name: Add Docker GPG apt Key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: Save the current Ubuntu release version into a variable
+    shell: lsb_release -cs
+    register: ubuntu_version
+
+  - name: Add Docker Repository
+    apt_repository:
+      repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ubuntu_version.stdout }} stable"
+      state: present
+
+  - name: Update apt packages
+    apt:
+      update_cache: "yes"
+      force_apt_get: "yes"
+
+  - name: Install Docker
+    apt:
+      name: "docker-ce"
+      state: present
+      force_apt_get: "yes"
+
+  - name: Create docker group
+    group:
+      name: "docker"
+      state: present
+
+  - name: Adding user {{ USER }} to docker group  
+    user:
+      name: "{{ USER }}"
+      groups: "docker"
+      append: "yes"
+      
+  - name: Change file permissions to docker daemon socket
+    file:
+      path: /var/run/docker.sock
+      mode: '0777'
+ 
+  - name: Example checkout a github repo and use refspec to fetch all pull requests
+    git:
+      repo: "{{ repo }}"
+      dest: /chucknorris
+      refspec: "+refs/pull/*:refs/heads/*"
+
+  - name: Install PIP 
+    apt:
+      name: python-pip
+      state: latest
+
+  - name: install pip libraries
+    pip: 
+      name: 
+      - docker
+      - requests>=2.20.1
+
+  - name: build the image
+    docker_image: 
+      name: chucknorris_jokes
+      tag: 1.0
+      path: /chucknorris
+      state: present
+
+  - name: run this chucknorris_jokes image in a docker container
+    docker_container:
+      name: chucknorrisapp
+      image: "chucknorris_jokes:1.0"
+      state: started
+      published_ports:
+        - "8080:8080"
