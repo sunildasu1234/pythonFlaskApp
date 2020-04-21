@@ -20,47 +20,28 @@ Python wrapper for Chuck Norris jokes from API https://api.chucknorris.io/
 Python wrapper for Chuck Norris jokes from API https://api.chucknorris.io/
 
 :author:     --  Sunil Kumar <sunildasu1234@gmail.com>
-:license:    --  MIT License - http://www.opensource.org/licenses/mit-license.php
 """
 import requests
 from flask import Flask
+
 app = Flask(__name__)
-
-class NorrisException(Exception):
-    pass
-
-
-class Norris(object):
-
-    def __init__(self):
-        self.id = None
-        self.joke = None
-        self.categories = None
-
-    def __repr__(self):
-        return '<{cls}: {joke}>'.format(
-            cls=self.__class__.__name__,
-            joke=self.joke
-        )
 
 
 class ChuckNorris(object):
 
-    def __init__(self):
-        self.base_url = 'http://api.icndb.com/jokes/'
+    @app.route("/")
+    def main():
+        return "Welcome! to Chuck-norris"
 
-    @app.route('/self')
-    def get_jokes_count():
+    @app.route('/jokes')
+    def get_jokes():
         url = 'https://api.chucknorris.io/jokes/random'
         response = requests.get(url)
         return response.json()['value']
 
-@app.route("/")
-def main():
-    return "Welcome! to Chuck-norris"
+    if __name__ == "__main__":
+        app.run(host="127.0.0.1", port=8080)
 
-if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=8080)
 ```
 * Once the code is cloned, I have executed build.sh script which contains below commands,
     python setup.py install
@@ -68,11 +49,11 @@ if __name__ == "__main__":
     python __init__.py
     Executed curl for verification, below is the output:
 ```
-root@ubuntu:/pythonFlaskApp/chuck# curl http://10.128.0.11:8080/self
+root@ubuntu:/pythonFlaskApp/chuck# curl http://10.128.0.11:8080/jokes
 10.128.0.11 - - [18/Apr/2020 11:00:38] "GET /self HTTP/1.1" 200 -
-A strange-but-true phenomenon - whenever there is a natural disaster in the world, Chuck Norris' stocks soar.root@ubuntu:/pythonFlaskApp/chuck# curl http://10.128.0.11:8080/self
+A strange-but-true phenomenon - whenever there is a natural disaster in the world, Chuck Norris' stocks soar.root@ubuntu:/pythonFlaskApp/chuck# curl http://10.128.0.11:8080/jokes
 10.128.0.11 - - [18/Apr/2020 11:00:51] "GET /self HTTP/1.1" 200 -
-Chuck Norris says, 'if life gives you lemons, punch it in the nuts until it doesn't.'root@ubuntu:/pythonFlaskApp/chuck# curl http://10.128.0.11:8080/self
+Chuck Norris says, 'if life gives you lemons, punch it in the nuts until it doesn't.'root@ubuntu:/pythonFlaskApp/chuck# curl http://10.128.0.11:8080/jokes
 10.128.0.11 - - [18/Apr/2020 11:00:58] "GET /self HTTP/1.1" 200 -
 Lindsay Lohan once put a hickey on one of Chuck Norris' hemorrhoids.root@ubuntu:/pythonFlaskApp/chuck# 79.194.192.221 - - [18/Apr/2020 11:01:04] "GET / HTTP/1.1" 200 -
 79.194.192.221 - - [18/Apr/2020 11:01:05] "GET /favicon.ico HTTP/1.1" 404 -
@@ -100,13 +81,13 @@ Lindsay Lohan once put a hickey on one of Chuck Norris' hemorrhoids.root@ubuntu:
       docker image ls
       docker run -d --name myapp -p 8080:8080 chucknorrise:1.0
   ```
-* Once when the container is up and running I have tested in browser using public IP (http://<public-ip>:8080/self) i can 
+* Once container is up and running, checked in the browser using public IP (http://<public-ip>:8080/jokes) then I can 
    able view the chuck norris jokes messages randomly after every refresh.
    
-   ![image](Chucknorris.PNG)
+  ![image](Chucknorris.PNG)
    
  ```
-root@ubuntu:/pythonFlaskApp# docker container ps -a
+root@ubuntu:/pythonFlaskApp# Once when the container is up and running Idocker container ps -a
 CONTAINER ID        IMAGE               COMMAND                CREATED             STATUS              PORTS                    NAMES
 179c750bb8f5        chucknorrise:1.0    "python __init__.py"   4 seconds ago       Up 3 seconds        0.0.0.0:8080->8080/tcp   myapp
 root@ubuntu:/pythonFlaskApp# curl http://10.128.0.11:8080
@@ -175,6 +156,7 @@ Installation
               - gnupg-agent
               - software-properties-common
             USER: "admin"
+            repo: "https://github.com/sunildasu1234/pythonFlaskApp.git"
           tasks: 
           - name: Install packages needed for Docker
             apt:
@@ -225,7 +207,7 @@ Installation
          
           - name: Example checkout a github repo and use refspec to fetch all pull requests
             git:
-              repo: https://github.com/sunildasu1234/pythonFlaskApp.git
+              repo: "{{ repo }}"
               dest: /chucknorris
               refspec: "+refs/pull/*:refs/heads/*"
         
@@ -253,9 +235,9 @@ Installation
               image: "chucknorris_jokes:1.0"
               state: started
               published_ports:
-                - "8080:8080"
+                - "8080:8080"    
      ```
     
- * Finally I can able to view the chucknorris jokes from the browser (http://<public-ip>:8080/self)      
+ * Finally I can able to view the Chucknorris jokes from the browser (http://<public-ip>:8080/self)      
         
   
