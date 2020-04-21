@@ -40,7 +40,7 @@ class ChuckNorris(object):
         return response.json()['value']
 
     if __name__ == "__main__":
-        app.run(host="127.0.0.1", port=8080)
+        app.run(host="0.0.0.0", port=8080)
 
 ```
 * Once the code is cloned, I have executed build.sh script which contains below commands,
@@ -155,7 +155,7 @@ Installation
               - curl
               - gnupg-agent
               - software-properties-common
-            USER: "admin"
+            USER: "ansible"
             repo: "https://github.com/sunildasu1234/pythonFlaskApp.git"
           tasks: 
           - name: Install packages needed for Docker
@@ -218,7 +218,8 @@ Installation
         
           - name: install pip libraries
             pip: 
-              name: 
+              name:
+              - flask
               - docker
               - requests>=2.20.1
         
@@ -235,7 +236,7 @@ Installation
               image: "chucknorris_jokes:1.0"
               state: started
               published_ports:
-                - "8080:8080"    
+                - "8080:8080"   
      ```
     
  * Finally I can able to view the Chucknorris jokes from the browser (http://<public-ip>:8080/self)      

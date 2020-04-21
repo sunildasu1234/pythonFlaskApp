@@ -8,7 +8,7 @@
       - curl
       - gnupg-agent
       - software-properties-common
-    USER: "admin"
+    USER: "ansible"
     repo: "https://github.com/sunildasu1234/pythonFlaskApp.git"
   tasks: 
   - name: Install packages needed for Docker
@@ -71,7 +71,8 @@
 
   - name: install pip libraries
     pip: 
-      name: 
+      name:
+      - flask
       - docker
       - requests>=2.20.1
 
