@@ -1,19 +1,18 @@
-# chuck-norris-pythonPython wrapper for "The Chuck Norris from API https://api.chucknorris.io/ and compatible with python 2 & 3.
-Python wrapper for Chuck Norris jokes from API https://api.chucknorris.io/
+# Python wrapper for Chuck Norris jokes from API https://api.chucknorris.io/
 
 #### Installation:
 
-* Below are the steps required to get this working on a base linux system.
+* Below are the steps required to perform on a base linux system.
 
-   * Installed Python and its dependencies
+   * Installation of Python and its dependencies
    ```
    apt-get install -y python python-setuptools python-dev build-essential python-pip
    ``` 
-   * Installed Python Flask dependency
+   * Installation of  Python Flask Library
    ```
       pip install flask
    ```
-  * Below is the code which is cloned from central repository (https://github.com/sunildasu1234/pythonFlaskApp.git) 
+  * Below is the source code which I clone from GitHub repository (https://github.com/sunildasu1234/pythonFlaskApp.git) 
 #### Python code:
 ```
 """
@@ -43,7 +42,7 @@ class ChuckNorris(object):
         app.run(host="0.0.0.0", port=8080)
 
 ```
- * Once the code is cloned, I have executed below commands to run python code,
+ * Once we checkout the code, I have executed below commands to run python code,
     
     ```
     python setup.py install
@@ -52,14 +51,19 @@ class ChuckNorris(object):
    
     ```
     
- * Executed curl for verification, below is the output:
+ *  Verified with curl command to get the jokes displayed randomly and also verfied with public IP of the machine from the 
+    browser i.e http://<public-ip>:8080. I can able to view the jokes.
 ```
-ansible@ip-172-31-38-224:~$ curl http://172.31.38.224:8080
-Welcome! to Chuck-norrisansible@ip-172-31-38-224:~$ curl http://172.31.38.224:8080/jokes
-A lot of people like to slam Tequila shots. Chuck Norris enjoys slamming people who enjoy slamming Tequila shots.ansible@ip-172-31-38-224:~$ curl http://172.31.38.224:8080/jokes
-Chuck Norris has a do called round houseansible@ip-172-31-38-224:~$ curl http://172.31.38.224:8080/jokes
-Chuck Norris balls is where u get the term, you dont have the stones.ansible@ip-172-31-38-224:~$
-ansible@ip-172-31-38-224:~$
+root@ubuntu:/pythonFlaskApp/chuck# curl http://10.128.0.11:8080/jokes
+10.128.0.11 - - [18/Apr/2020 11:00:38] "GET /self HTTP/1.1" 200 -
+A strange-but-true phenomenon - whenever there is a natural disaster in the world, Chuck Norris' stocks soar.root@ubuntu:/pythonFlaskApp/chuck# curl http://10.128.0.11:8080/jokes
+10.128.0.11 - - [18/Apr/2020 11:00:51] "GET /self HTTP/1.1" 200 -
+Chuck Norris says, 'if life gives you lemons, punch it in the nuts until it doesn't.'root@ubuntu:/pythonFlaskApp/chuck# curl http://10.128.0.11:8080/jokes
+10.128.0.11 - - [18/Apr/2020 11:00:58] "GET /jokes HTTP/1.1" 200 -
+Lindsay Lohan once put a hickey on one of Chuck Norris' hemorrhoids.root@ubuntu:/pythonFlaskApp/chuck# 79.194.192.221 - - [18/Apr/2020 11:01:04] "GET / HTTP/1.1" 200 -
+79.194.192.221 - - [18/Apr/2020 11:01:05] "GET /favicon.ico HTTP/1.1" 404 -
+79.194.192.221 - - [18/Apr/2020 11:01:14] "GET /jokes HTTP/1.1" 200 -
+79.194.192.221 - - [18/Apr/2020 11:01:22] "GET /jokes HTTP/1.1" 200 -
 
 ```
 * Next I have installed docker manually and create Dockerfile to build the image.
@@ -77,13 +81,13 @@ ansible@ip-172-31-38-224:~$
    RUN sh build.sh && echo ls -ld $HOME_DIR/chuck/
    ENTRYPOINT ["python", "__init__.py"]
    ```
-* Below commands is used to build the docker image and run the container,
+* Below are the commands which I used to build the docker image and run the container,
   ```
       docker image build -t chucknorrise:1.0 .
       docker image ls
       docker run -d --name myapp -p 8080:8080 chucknorrise:1.0
   ```
-* Once container is up and running, checked in the browser using public IP (http://<public-ip>:8080/jokes) then I can 
+* Once container is up and running, I checked in the browser using public IP (http://<public-ip>:8080/jokes) then I can 
    able view the chuck norris jokes messages randomly after every refresh.
    
   ![image](Chucknorris.PNG)
@@ -103,10 +107,9 @@ ansible@ip-172-31-38-224:~$ curl http://172.31.38.224:8080/jokes
 There is no 'ctrl' button on Chuck Norris's computer. Chuck Norris is always in control.ansible@ip-172-31-38-224:~$
 
 
-
  ```
 
-****Deploying chucknorris python Application using Ansible****
+ # Deploying chucknorris python Application using Ansible 
   
 Ansible Terms
   * Playbook: Declarative specification for your application deployment using YAML.
@@ -115,7 +118,7 @@ Ansible Terms
   * Managed Node or Node: The machine/system which has python installed and which we want to control from Ansible.
   
 Installation
-  * Created two t2.micro with ubuntu 18 image
+  * Created two t2.micro with ubuntu 18.04 image
   * Login into ansible control server
       
    ```
@@ -127,23 +130,25 @@ Installation
   
    ```
 
- * We need to configure an user on the ansible control server and also in nodes
-     * Login into ansible control server and
-        * Ensure password based authentication is enabled
-        * Create a user called as ansible
-        * Give ansible user sudo privileges
-        * Now create a key for the ansible admin
-     * Login into node 
-        * Ensure password based authentication is enabled
-        * Create a user called as ansible
-        * Give ansible user sudo privileges
-        * Now create a key for the user ansible
-     * Login into ansible control server & copy the public key to node for seamless authentication
+ * We need to configure the user in ansible control server and node as well.
+ 
+     * Logged into ansible control server and performed below steps
+        * Ensure password based authentication is enabled.
+        * Create a user called as ansible.
+        * Provide sudo privileges to the ansible user.
+        * Generate a key for the ansible user.
+     * Logged into node and performed below steps
+        * Ensure password based authentication is enabled.
+        * Create a user called as ansible.
+        * Provide sudo privileges to the ansible user.
+        * Generate a key for the user.
+        
+     * Login into ansible control server & copy the public key to node for seamless authentication.
      
    * Playbook:
      * Below are the steps performed to execute ansible playbook.
        1. Used apt module to update the packages.
-       2. Install docker and created admin user and assign to docker group.
+       2. Install docker and created ansible user and assign to docker group.
        3. Clone the code from git repo (https://github.com/sunildasu1234/pythonFlaskApp.git) and 
           kept in chucknorris directory
        4. Installed python-pip and pip libraries.
