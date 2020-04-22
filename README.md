@@ -43,11 +43,16 @@ class ChuckNorris(object):
         app.run(host="0.0.0.0", port=8080)
 
 ```
-* Once the code is cloned, I have executed build.sh script which contains below commands,
+ * Once the code is cloned, I have executed below commands to run python code,
+    
+    ```
     python setup.py install
     python setup.py build
     python __init__.py
-    Executed curl for verification, below is the output:
+   
+    ```
+    
+ * Executed curl for verification, below is the output:
 ```
 ansible@ip-172-31-38-224:~$ curl http://172.31.38.224:8080
 Welcome! to Chuck-norrisansible@ip-172-31-38-224:~$ curl http://172.31.38.224:8080/jokes
