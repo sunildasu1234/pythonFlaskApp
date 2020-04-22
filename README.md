@@ -52,7 +52,7 @@ class ChuckNorris(object):
     ```
     
  *  Verified with curl command to get the jokes displayed randomly and also verfied with public IP of the machine from the 
-    browser i.e http://<public-ip>:8080. I can able to view the jokes.
+    browser (http://public-ip:8080/jokes). I can able to view the jokes.
 ```
 root@ubuntu:/pythonFlaskApp/chuck# curl http://10.128.0.11:8080/jokes
 10.128.0.11 - - [18/Apr/2020 11:00:38] "GET /self HTTP/1.1" 200 -
