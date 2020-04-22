@@ -87,7 +87,7 @@ Lindsay Lohan once put a hickey on one of Chuck Norris' hemorrhoids.root@ubuntu:
       docker image ls
       docker run -d --name myapp -p 8080:8080 chucknorrise:1.0
   ```
-* Once container is up and running, I checked in the browser using public IP (http://<public-ip>:8080/jokes) then I can 
+* Once container is up and running, I checked in the browser using public IP (http://public-ip:8080/jokes) then I can 
    able view the chuck norris jokes messages randomly after every refresh.
    
   ![image](Chucknorris.PNG)
